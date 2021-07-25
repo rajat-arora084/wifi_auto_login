@@ -48,6 +48,22 @@ def get_config_data():
     return config_data
 
 
+def login_to_service_provider_using_api_call(credentials, config):
+    try:
+        data = {
+            'phone': 0,
+            'fromTemplate': 1,
+            'type': 2,
+            'username': credentials.get('username', ''),
+            'password': credentials.get('password', ''),
+            'x': 0,
+            'y':0
+        }
+        requests.post(config.get('login_url_api'), data=data)
+    except:
+        raise Exception('Some error occurred while logging in')
+
+
 def login_to_service_provider(credentials, config):
     try:
         chrome_driver = webdriver.Chrome(executable_path=config.get('chrome_exe_path'))    
